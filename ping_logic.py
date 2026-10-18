@@ -1,10 +1,10 @@
 import sqlite3
 import pandas as pd
 
-# 1. Database se connect karo jo tumne abhi banaya hai
+# 1. Database connected 
 conn = sqlite3.connect('ping_pnl_data.db')
 
-# 2. Asli SQL Query - PingP&L ka core Business Logic
+# 2. SQL Query - PingP&L core Business Logic
 query = """
 SELECT 
     notifications_received as Pings,
@@ -19,7 +19,7 @@ GROUP BY notifications_received
 ORDER BY notifications_received;
 """
 
-# 3. Query run karke result table me dekho
+# 3. Query run
 df_result = pd.read_sql_query(query, conn)
 
 print("--- PingP&L Business Analysis ---")
