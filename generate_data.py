@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import sqlite3
 
-# 1. 1000 users ka dummy data generate karte hain
+# 1. 1000 users synthetic data
 np.random.seed(42)
 n_users = 1000
 
@@ -14,7 +14,7 @@ data = {
 
 df = pd.DataFrame(data)
 
-# 2. Asli Business Logic: Agar 3 se zyada ping gaye, toh user gussa hoke app delete karega (Churn)
+# 2. After 3 ping user will delete the app (Churn)
 def calculate_churn(notifs):
     if notifs <= 2:
         return np.random.choice([0, 1], p=[0.95, 0.05]) # Sirf 5% delete karenge
@@ -27,7 +27,7 @@ def calculate_churn(notifs):
 
 df['churned'] = df['notifications_received'].apply(calculate_churn)
 
-# 3. Data ko local SQLite Database me save karte hain
+# 3. Data save in SQlite 
 conn = sqlite3.connect('ping_pnl_data.db')
 df.to_sql('user_metrics', conn, if_exists='replace', index=False)
 conn.close()
