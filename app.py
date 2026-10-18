@@ -4,16 +4,15 @@ import pandas as pd
 import plotly.express as px
 import google.generativeai as genai
 
-# ==========================================
+
 # 1. Page ki setting aur Title
-# ==========================================
+
 st.set_page_config(page_title="PingP&L Dashboard", layout="wide")
 st.title("🚀 PingP&L: Notification Guardrail System")
 st.markdown("Find the exact 'Tipping Point' where push notifications start destroying unit economics.")
 
-# ==========================================
 # 2. Database se Data lana
-# ==========================================
+
 conn = sqlite3.connect('ping_pnl_data.db')
 query = """
 SELECT 
@@ -31,9 +30,8 @@ ORDER BY notifications_received;
 df = pd.read_sql_query(query, conn)
 conn.close()
 
-# ==========================================
 # 3. Data aur Graphs ko screen par dikhana
-# ==========================================
+
 col1, col2 = st.columns(2)
 
 with col1:
@@ -54,12 +52,12 @@ with col2:
 
 st.markdown("---")
 
-# ==========================================
+
 # 4. AI Operations Directive (GEMINI AI)
-# ==========================================
+
 st.markdown("### 🤖 AI Operations Directive")
 
-# 🔥 BAS YAHAN APNI API KEY DAALNI HAI 🔥
+# insert API key 
 API_KEY = st.secrets["GEMINI_API_KEY"]
 
 genai.configure(api_key=API_KEY)
@@ -74,10 +72,9 @@ Identify the exact notification count where Net_PnL turns negative (the tipping 
 Order them to set a hard cap on daily notifications to prevent CAC losses.
 """
 
-# Ye button ab pakka dikhega screen par
 if st.button("Generate Strategy Memo"):
-    if API_KEY == "TUMHARA_API_KEY_YAHAN_PASTE_KARO":
-        st.error("⚠️ Bhai, Code me line number 48 par apna asli API Key daalna bhool gaye!")
+    if API_KEY == "API_KEY":
+        st.error("Bhai, Code me line number 48 par apna asli API Key daalna bhool gaye!")
     else:
         with st.spinner("AI is analyzing unit economics..."):
             try:
